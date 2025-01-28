@@ -1,0 +1,121 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXTheme": {
+      "version": "4.0.5",
+      "isInstalled": true
+    },
+    "Volo.Abp.TextTemplateManagement": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.LanguageManagement": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict.Pro": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.Gdpr": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.AuditLogging.Pro": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Saas": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity.Pro": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account.Pro": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.0.4",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.0.4",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "DevNas.BookStore.Application": {
+      "path": "src/DevNas.BookStore.Application/DevNas.BookStore.Application.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.Application.Tests": {
+      "path": "test/DevNas.BookStore.Application.Tests/DevNas.BookStore.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.Domain.Shared": {
+      "path": "src/DevNas.BookStore.Domain.Shared/DevNas.BookStore.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.Application.Contracts": {
+      "path": "src/DevNas.BookStore.Application.Contracts/DevNas.BookStore.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.HttpApi": {
+      "path": "src/DevNas.BookStore.HttpApi/DevNas.BookStore.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.HttpApi.Client": {
+      "path": "src/DevNas.BookStore.HttpApi.Client/DevNas.BookStore.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.Web": {
+      "path": "src/DevNas.BookStore.Web/DevNas.BookStore.Web.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.Web.Tests": {
+      "path": "test/DevNas.BookStore.Web.Tests/DevNas.BookStore.Web.Tests.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.EntityFrameworkCore.Tests": {
+      "path": "test/DevNas.BookStore.EntityFrameworkCore.Tests/DevNas.BookStore.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.EntityFrameworkCore": {
+      "path": "src/DevNas.BookStore.EntityFrameworkCore/DevNas.BookStore.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.TestBase": {
+      "path": "test/DevNas.BookStore.TestBase/DevNas.BookStore.TestBase.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.Domain.Tests": {
+      "path": "test/DevNas.BookStore.Domain.Tests/DevNas.BookStore.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/DevNas.BookStore.HttpApi.Client.ConsoleTestApp/DevNas.BookStore.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "DevNas.BookStore.DbMigrator": {
+      "path": "src/DevNas.BookStore.DbMigrator/DevNas.BookStore.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "DevNas.BookStore.Domain": {
+      "path": "src/DevNas.BookStore.Domain/DevNas.BookStore.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

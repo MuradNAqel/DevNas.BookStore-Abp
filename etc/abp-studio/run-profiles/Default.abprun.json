@@ -1,0 +1,13 @@
+﻿{
+  "applications": {
+    "DevNas.BookStore.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44383",
+      "path": "../../../src/DevNas.BookStore.Web/DevNas.BookStore.Web.csproj",
+      "kubernetesService": ".*-web$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}
