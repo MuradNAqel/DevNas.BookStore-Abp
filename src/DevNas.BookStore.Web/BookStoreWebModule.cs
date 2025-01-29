@@ -1,70 +1,61 @@
-using System.IO;
+using DevNas.BookStore.EntityFrameworkCore;
+using DevNas.BookStore.Localization;
+using DevNas.BookStore.MultiTenancy;
+using DevNas.BookStore.Permissions;
+using DevNas.BookStore.Web.HealthChecks;
+using DevNas.BookStore.Web.Menus;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DevNas.BookStore.EntityFrameworkCore;
-using DevNas.BookStore.Localization;
-using DevNas.BookStore.MultiTenancy;
-using DevNas.BookStore.Permissions;
-using DevNas.BookStore.Web.Menus;
 using Microsoft.OpenApi.Models;
-using Volo.Abp;
-using Volo.Abp.Studio;
-using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.Localization;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonX;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonX.Bundling;
-using Volo.Abp.LeptonX.Shared;
-using Volo.Abp.Autofac;
-using Volo.Abp.AutoMapper;
-using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement;
-using Volo.Abp.PermissionManagement.Web;
-using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.UI;
-using Volo.Abp.UI.Navigation;
-using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.Identity.Web;
-using Volo.Abp.FeatureManagement;
 using OpenIddict.Server.AspNetCore;
 using OpenIddict.Validation.AspNetCore;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Commercial;
-using DevNas.BookStore.Web.HealthChecks;
+using System;
+using System.IO;
+using Volo.Abp;
 using Volo.Abp.Account.Admin.Web;
 using Volo.Abp.Account.Public.Web;
 using Volo.Abp.Account.Public.Web.ExternalProviders;
-using Volo.Abp.Account.Pro.Public.Web.Shared;
-using Volo.Abp.AuditLogging.Web;
-using Volo.Abp.LanguageManagement;
-using Volo.Abp.TextTemplateManagement.Web;
-using Volo.Saas.Host;
-using Volo.Abp.Gdpr.Web;
-using Volo.Abp.Gdpr.Web.Extensions;
-using Volo.Abp.OpenIddict.Pro.Web;
-using System;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
-using Microsoft.AspNetCore.Authentication.Twitter;
-using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonX;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonX.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Toolbars;
 using Volo.Abp.AspNetCore.Serilog;
+using Volo.Abp.AuditLogging.Web;
+using Volo.Abp.Autofac;
+using Volo.Abp.AutoMapper;
+using Volo.Abp.FeatureManagement;
+using Volo.Abp.Gdpr.Web;
+using Volo.Abp.Gdpr.Web.Extensions;
 using Volo.Abp.Identity;
-using Volo.Abp.Swashbuckle;
+using Volo.Abp.Identity.Web;
+using Volo.Abp.LanguageManagement;
+using Volo.Abp.LeptonX.Shared;
+using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict;
+using Volo.Abp.OpenIddict.Pro.Web;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.Security.Claims;
-using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Studio.Client.AspNetCore;
+using Volo.Abp.Swashbuckle;
+using Volo.Abp.TextTemplateManagement.Web;
+using Volo.Abp.UI.Navigation;
+using Volo.Abp.UI.Navigation.Urls;
+using Volo.Abp.VirtualFileSystem;
+using Volo.Saas.Host;
 
 namespace DevNas.BookStore.Web;
 
@@ -149,7 +140,7 @@ public class BookStoreWebModule : AbpModule
             {
                 options.DisableTransportSecurityRequirement = true;
             });
-            
+
             Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedProto;
@@ -158,7 +149,7 @@ public class BookStoreWebModule : AbpModule
 
         ConfigureBundles();
         ConfigureUrls(configuration);
-        ConfigurePages(configuration);
+        //ConfigurePages(configuration);
         ConfigureImpersonation(context, configuration);
         ConfigureHealthChecks(context);
         ConfigureExternalProviders(context);
@@ -175,6 +166,14 @@ public class BookStoreWebModule : AbpModule
         {
             options.IsDynamicPermissionStoreEnabled = true;
         });
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizePage("/Books/Index", BookStorePermissions.Books.Default);
+            options.Conventions.AuthorizePage("/Books/CreateModal", BookStorePermissions.Books.Create);
+            options.Conventions.AuthorizePage("/Books/EditModal", BookStorePermissions.Books.Edit);
+        });
+
     }
 
     private void ConfigureCookieConsent(ServiceConfigurationContext context)
@@ -220,14 +219,14 @@ public class BookStoreWebModule : AbpModule
         });
     }
 
-    private void ConfigurePages(IConfiguration configuration)
-    {
-        Configure<RazorPagesOptions>(options =>
-        {
-            options.Conventions.AuthorizePage("/HostDashboard", BookStorePermissions.Dashboard.Host);
-            options.Conventions.AuthorizePage("/TenantDashboard", BookStorePermissions.Dashboard.Tenant);
-        });
-    }
+    //private void ConfigurePages(IConfiguration configuration)
+    //{
+    //    Configure<RazorPagesOptions>(options =>
+    //    {
+    //        options.Conventions.AuthorizePage("/HostDashboard", BookStorePermissions.Dashboard.Host);
+    //        options.Conventions.AuthorizePage("/TenantDashboard", BookStorePermissions.Dashboard.Tenant);
+    //    });
+    //}
 
     private void ConfigureUrls(IConfiguration configuration)
     {
@@ -357,7 +356,7 @@ public class BookStoreWebModule : AbpModule
             )
             .AddTwitter(TwitterDefaults.AuthenticationScheme, options =>
             {
-                options.ClaimActions.MapJsonKey(AbpClaimTypes.Picture,"profile_image_url_https");
+                options.ClaimActions.MapJsonKey(AbpClaimTypes.Picture, "profile_image_url_https");
                 options.RetrieveUserDetails = true;
             })
             .WithDynamicOptions<TwitterOptions, TwitterHandler>(

@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DevNas.BookStore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20250128100533_Creation")]
-    partial class Creation
+    [Migration("20250128124739_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

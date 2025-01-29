@@ -1,4 +1,5 @@
 using AutoMapper;
+using DevNas.BookStore.Books;
 
 namespace DevNas.BookStore.Web;
 
@@ -6,6 +7,6 @@ public class BookStoreWebAutoMapperProfile : Profile
 {
     public BookStoreWebAutoMapperProfile()
     {
-        //Define your object mappings here, for the Web project
+        CreateMap<BookDto, CreateUpdateBookDto>();
     }
 }

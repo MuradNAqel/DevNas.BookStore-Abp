@@ -1,15 +1,14 @@
-using System.Threading.Tasks;
 using DevNas.BookStore.Localization;
 using DevNas.BookStore.Permissions;
-using DevNas.BookStore.MultiTenancy;
-using Volo.Abp.SettingManagement.Web.Navigation;
+using System.Threading.Tasks;
+using Volo.Abp.AuditLogging.Web.Navigation;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
-using Volo.Abp.UI.Navigation;
-using Volo.Abp.AuditLogging.Web.Navigation;
 using Volo.Abp.LanguageManagement.Navigation;
-using Volo.Abp.TextTemplateManagement.Web.Navigation;
 using Volo.Abp.OpenIddict.Pro.Web.Menus;
+using Volo.Abp.SettingManagement.Web.Navigation;
+using Volo.Abp.TextTemplateManagement.Web.Navigation;
+using Volo.Abp.UI.Navigation;
 using Volo.Saas.Host.Navigation;
 
 namespace DevNas.BookStore.Web.Menus;
@@ -39,28 +38,28 @@ public class BookStoreMenuContributor : IMenuContributor
             )
         );
 
-        //HostDashboard
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                BookStoreMenus.HostDashboard,
-                l["Menu:Dashboard"],
-                "~/HostDashboard",
-                icon: "fa fa-line-chart",
-                order: 2
-            ).RequirePermissions(BookStorePermissions.Dashboard.Host)
-        );
+        ////HostDashboard
+        //context.Menu.AddItem(
+        //    new ApplicationMenuItem(
+        //        BookStoreMenus.HostDashboard,
+        //        l["Menu:Dashboard"],
+        //        "~/HostDashboard",
+        //        icon: "fa fa-line-chart",
+        //        order: 2
+        //    ).RequirePermissions(BookStorePermissions.Dashboard.Host)
+        //);
 
-        //TenantDashboard
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                BookStoreMenus.TenantDashboard,
-                l["Menu:Dashboard"],
-                "~/Dashboard",
-                icon: "fa fa-line-chart",
-                order: 2
-            ).RequirePermissions(BookStorePermissions.Dashboard.Tenant)
-        );
-    
+        ////TenantDashboard
+        //context.Menu.AddItem(
+        //    new ApplicationMenuItem(
+        //        BookStoreMenus.TenantDashboard,
+        //        l["Menu:Dashboard"],
+        //        "~/Dashboard",
+        //        icon: "fa fa-line-chart",
+        //        order: 2
+        //    ).RequirePermissions(BookStorePermissions.Dashboard.Tenant)
+        //);
+
 
         //Administration
         var administration = context.Menu.GetAdministration();
@@ -86,7 +85,24 @@ public class BookStoreMenuContributor : IMenuContributor
 
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
-        
+
+        //Menu Items
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "BooksStore",
+                l["Menu:BookStore"],
+                icon: "fa fa-book"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "BooksStore.Books",
+                    l["Menu:Books"],
+                    url: "/Books"
+                ).RequirePermissions(BookStorePermissions.Books.Default) // Check the permission!
+            )
+        );
+
+
+
         return Task.CompletedTask;
     }
 }

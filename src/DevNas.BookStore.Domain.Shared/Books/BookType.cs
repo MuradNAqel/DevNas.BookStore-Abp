@@ -1,4 +1,4 @@
-﻿namespace DevNas.BookStore.enums
+﻿namespace DevNas.BookStore.Books
 {
     public enum BookType
     {
