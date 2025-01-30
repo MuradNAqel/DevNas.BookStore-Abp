@@ -1,4 +1,5 @@
 using AutoMapper;
+using DevNas.BookStore.Authors;
 using DevNas.BookStore.Books;
 
 namespace DevNas.BookStore;
@@ -9,5 +10,7 @@ public class BookStoreApplicationAutoMapperProfile : Profile
     {
         CreateMap<Book, BookDto>();
         CreateMap<CreateUpdateBookDto, Book>();
+
+        CreateMap<Author, AuthorDto>();
     }
 }
