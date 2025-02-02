@@ -67,21 +67,6 @@ namespace DevNas.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AbpBlobContainers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpBlobContainers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AbpClaimTypes",
                 columns: table => new
                 {
@@ -425,50 +410,6 @@ namespace DevNas.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AbpTextTemplateContents",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CultureName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", maxLength: 65535, nullable: false),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpTextTemplateContents", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AbpTextTemplateDefinitionRecords",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    IsLayout = table.Column<bool>(type: "bit", nullable: false),
-                    Layout = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    LocalizationResourceName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    IsInlineLocalized = table.Column<bool>(type: "bit", nullable: false),
-                    DefaultCultureName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    RenderEngine = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpTextTemplateDefinitionRecords", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AbpUserDelegations",
                 columns: table => new
                 {
@@ -526,6 +467,29 @@ namespace DevNas.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppAuthors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShortBio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppAuthors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppBooks",
                 columns: table => new
                 {
@@ -544,22 +508,6 @@ namespace DevNas.BookStore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppBooks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GdprRequests",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReadyTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GdprRequests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -726,29 +674,6 @@ namespace DevNas.BookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AbpBlobs",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ContainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Content = table.Column<byte[]>(type: "varbinary(max)", maxLength: 2147483647, nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpBlobs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AbpBlobs_AbpBlobContainers_ContainerId",
-                        column: x => x.ContainerId,
-                        principalTable: "AbpBlobContainers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AbpOrganizationUnitRoles",
                 columns: table => new
                 {
@@ -792,26 +717,6 @@ namespace DevNas.BookStore.Migrations
                         name: "FK_AbpRoleClaims_AbpRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AbpRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AbpTextTemplateDefinitionContentRecords",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DefinitionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    FileContent = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpTextTemplateDefinitionContentRecords", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AbpTextTemplateDefinitionContentRecords_AbpTextTemplateDefinitionRecords_DefinitionId",
-                        column: x => x.DefinitionId,
-                        principalTable: "AbpTextTemplateDefinitionRecords",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -927,26 +832,6 @@ namespace DevNas.BookStore.Migrations
                         name: "FK_AbpUserTokens_AbpUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AbpUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GdprInfo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RequestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Provider = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GdprInfo", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GdprInfo_GdprRequests_RequestId",
-                        column: x => x.RequestId,
-                        principalTable: "GdprRequests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1076,21 +961,6 @@ namespace DevNas.BookStore.Migrations
                 name: "IX_AbpBackgroundJobs_IsAbandoned_NextTryTime",
                 table: "AbpBackgroundJobs",
                 columns: new[] { "IsAbandoned", "NextTryTime" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpBlobContainers_TenantId_Name",
-                table: "AbpBlobContainers",
-                columns: new[] { "TenantId", "Name" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpBlobs_ContainerId",
-                table: "AbpBlobs",
-                column: "ContainerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpBlobs_TenantId_ContainerId_Name",
-                table: "AbpBlobs",
-                columns: new[] { "TenantId", "ContainerId", "Name" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpEntityChanges_AuditLogId",
@@ -1258,17 +1128,6 @@ namespace DevNas.BookStore.Migrations
                 filter: "[ProviderName] IS NOT NULL AND [ProviderKey] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbpTextTemplateDefinitionContentRecords_DefinitionId",
-                table: "AbpTextTemplateDefinitionContentRecords",
-                column: "DefinitionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpTextTemplateDefinitionRecords_Name",
-                table: "AbpTextTemplateDefinitionRecords",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AbpUserClaims_UserId",
                 table: "AbpUserClaims",
                 column: "UserId");
@@ -1309,14 +1168,9 @@ namespace DevNas.BookStore.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GdprInfo_RequestId",
-                table: "GdprInfo",
-                column: "RequestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GdprRequests_UserId",
-                table: "GdprRequests",
-                column: "UserId");
+                name: "IX_AppAuthors_Name",
+                table: "AppAuthors",
+                column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1372,9 +1226,6 @@ namespace DevNas.BookStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpBackgroundJobs");
-
-            migrationBuilder.DropTable(
-                name: "AbpBlobs");
 
             migrationBuilder.DropTable(
                 name: "AbpClaimTypes");
@@ -1434,12 +1285,6 @@ namespace DevNas.BookStore.Migrations
                 name: "AbpSettings");
 
             migrationBuilder.DropTable(
-                name: "AbpTextTemplateContents");
-
-            migrationBuilder.DropTable(
-                name: "AbpTextTemplateDefinitionContentRecords");
-
-            migrationBuilder.DropTable(
                 name: "AbpUserClaims");
 
             migrationBuilder.DropTable(
@@ -1458,10 +1303,10 @@ namespace DevNas.BookStore.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AppBooks");
+                name: "AppAuthors");
 
             migrationBuilder.DropTable(
-                name: "GdprInfo");
+                name: "AppBooks");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
@@ -1476,13 +1321,7 @@ namespace DevNas.BookStore.Migrations
                 name: "SaasTenantConnectionStrings");
 
             migrationBuilder.DropTable(
-                name: "AbpBlobContainers");
-
-            migrationBuilder.DropTable(
                 name: "AbpEntityChanges");
-
-            migrationBuilder.DropTable(
-                name: "AbpTextTemplateDefinitionRecords");
 
             migrationBuilder.DropTable(
                 name: "AbpOrganizationUnits");
@@ -1492,9 +1331,6 @@ namespace DevNas.BookStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "AbpUsers");
-
-            migrationBuilder.DropTable(
-                name: "GdprRequests");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");

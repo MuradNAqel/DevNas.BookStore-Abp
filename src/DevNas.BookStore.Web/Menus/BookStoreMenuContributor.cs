@@ -38,6 +38,27 @@ public class BookStoreMenuContributor : IMenuContributor
             )
         );
 
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "BooksStore",
+                l["Menu:BookStore"],
+                icon: "fa fa-book"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "BooksStore.Books",
+                    l["Menu:Books"],
+                    url: "/Books"
+                ).RequirePermissions(BookStorePermissions.Books.Default)
+            ).AddItem( // ADDED THE NEW "AUTHORS" MENU ITEM UNDER THE "BOOK STORE" MENU
+                new ApplicationMenuItem(
+                    "BooksStore.Authors",
+                    l["Menu:Authors"],
+                    url: "/Authors"
+                ).RequirePermissions(BookStorePermissions.Authors.Default)
+            )
+        );
+
+
         ////HostDashboard
         //context.Menu.AddItem(
         //    new ApplicationMenuItem(
@@ -86,20 +107,20 @@ public class BookStoreMenuContributor : IMenuContributor
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
 
-        //Menu Items
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                "BooksStore",
-                l["Menu:BookStore"],
-                icon: "fa fa-book"
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "BooksStore.Books",
-                    l["Menu:Books"],
-                    url: "/Books"
-                ).RequirePermissions(BookStorePermissions.Books.Default) // Check the permission!
-            )
-        );
+        ////Menu Items
+        //context.Menu.AddItem(
+        //    new ApplicationMenuItem(
+        //        "BooksStore",
+        //        l["Menu:BookStore"],
+        //        icon: "fa fa-book"
+        //    ).AddItem(
+        //        new ApplicationMenuItem(
+        //            "BooksStore.Books",
+        //            l["Menu:Books"],
+        //            url: "/Books"
+        //        ).RequirePermissions(BookStorePermissions.Books.Default) // Check the permission!
+        //    )
+        //);
 
 
 

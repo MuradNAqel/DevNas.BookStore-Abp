@@ -10,9 +10,11 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.LanguageManagement.EntityFrameworkCore;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
+using Volo.Saas.EntityFrameworkCore;
 
 namespace DevNas.BookStore.EntityFrameworkCore;
 
@@ -68,6 +70,9 @@ public class BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) :
         builder.ConfigureIdentity();
         builder.ConfigureOpenIddict();
         builder.ConfigureFeatureManagement();
+        builder.ConfigureLanguageManagement();
+        builder.ConfigureSaas();
+
         //builder.ConfigureTenantManagement();
 
         builder.Entity<Book>(b =>
