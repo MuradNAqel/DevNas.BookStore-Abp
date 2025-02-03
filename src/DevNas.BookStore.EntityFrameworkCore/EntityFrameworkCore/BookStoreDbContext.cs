@@ -82,7 +82,7 @@ public class BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) :
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
 
             // ADD THE MAPPING FOR THE RELATION
-            //b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
+            b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
         });
 
         builder.Entity<Author>(b =>
