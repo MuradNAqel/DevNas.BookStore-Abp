@@ -1,0 +1,43 @@
+﻿<label>
+    <input type="checkbox" id="viewAuthorsCheckbox">
+    Allow Viewing Authors Table
+</label>
+
+<script>
+    $(document).ready(function () {
+        var settingsService = devNas.bookStore.settings.settings;
+
+        // Give initial val for checkbox
+        settingsService.getAllowToViewAuthors().then(function (result) {
+            const isChecked = result === "True";
+
+            $("#viewAuthorsCheckbox").prop("checked", isChecked);
+        }).catch(function (err) {
+            console.error("Failed to fetch setting:", err);
+        });
+
+        // checkbox Onchange
+        $("#viewAuthorsCheckbox").on("change", function () {
+            const isChecked = $(this).prop("checked");
+
+            settingsService.setAllowToViewAuthors(isChecked)
+                .then(() => console.log("Toggled Successfully"))
+                .catch(err => console.error("Toggled Failed", err));
+        });
+    });
+
+
+    // document.onload()
+
+    //  var settingsService = devNas.bookStore.settinggs.settinggs;
+
+    //    document.getElementById("viewAuthorsCheckbox").addEventListener("change", function () {
+           
+    //         const isChecked = $(this).prop("checked");
+    //         settingsService.setAllowToViewAuthors(isChecked).then((res) => {
+    //         }).catch(err => {
+    //             console.log(err);
+    //         })
+    // });
+
+</script>

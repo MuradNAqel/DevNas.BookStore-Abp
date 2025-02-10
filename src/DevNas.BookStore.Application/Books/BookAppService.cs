@@ -10,6 +10,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Features;
 
 namespace DevNas.BookStore.Books
 {
@@ -25,8 +26,9 @@ namespace DevNas.BookStore.Books
     {
 
         private readonly IAuthorRepository _authorRepository;
+        private readonly IFeatureChecker _featureChecker;
 
-        public BookAppService(IRepository<Book, Guid> repository, IAuthorRepository authorRepository)
+        public BookAppService(IRepository<Book, Guid> repository, IAuthorRepository authorRepository, IFeatureChecker featureChecker)
             : base(repository)
         {
             _authorRepository = authorRepository;
@@ -35,6 +37,7 @@ namespace DevNas.BookStore.Books
             CreatePolicyName = BookStorePermissions.Books.Create;
             UpdatePolicyName = BookStorePermissions.Books.Edit;
             DeletePolicyName = BookStorePermissions.Books.Delete;
+            _featureChecker = featureChecker;
         }
 
         public override async Task<BookDto> GetAsync(Guid id)
@@ -56,9 +59,10 @@ namespace DevNas.BookStore.Books
             bookDto.AuthorName = result.author.Name;
             return bookDto;
         }
-
+        [RequiresFeature("BookGroup.SpecialFeature")]
         public override async Task<PagedResultDto<BookDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
+
             var queryable = await Repository.GetQueryableAsync();
 
             var query = from book in queryable

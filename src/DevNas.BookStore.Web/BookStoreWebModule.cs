@@ -2,6 +2,7 @@ using DevNas.BookStore.EntityFrameworkCore;
 using DevNas.BookStore.Localization;
 using DevNas.BookStore.MultiTenancy;
 using DevNas.BookStore.Permissions;
+using DevNas.BookStore.Web.Components.Custom_Settings;
 using DevNas.BookStore.Web.HealthChecks;
 using DevNas.BookStore.Web.Menus;
 using Microsoft.AspNetCore.Authentication;
@@ -49,6 +50,7 @@ using Volo.Abp.OpenIddict;
 using Volo.Abp.OpenIddict.Pro.Web;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Security.Claims;
+using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.Studio.Client.AspNetCore;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TextTemplateManagement.Web;
@@ -173,6 +175,12 @@ public class BookStoreWebModule : AbpModule
             options.Conventions.AuthorizePage("/Books/CreateModal", BookStorePermissions.Books.Create);
             options.Conventions.AuthorizePage("/Books/EditModal", BookStorePermissions.Books.Edit);
         });
+
+        Configure<SettingManagementPageOptions>(options =>
+        {
+            options.Contributors.Add(new BookStoreSettingPageContributor());
+        });
+
 
     }
 
@@ -369,7 +377,6 @@ public class BookStoreWebModule : AbpModule
             );
     }
 
-
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -416,4 +423,5 @@ public class BookStoreWebModule : AbpModule
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
     }
+
 }

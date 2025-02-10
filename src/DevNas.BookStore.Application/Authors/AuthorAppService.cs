@@ -1,4 +1,5 @@
 ﻿using DevNas.BookStore.Permissions;
+using DevNas.BookStore.Settings;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,16 @@ namespace DevNas.BookStore.Authors
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly AuthorManager _authorManager;
+        private readonly ISettingsAppService _settingsAppService;
 
         public AuthorAppService(
             IAuthorRepository authorRepository,
-            AuthorManager authorManager)
+            AuthorManager authorManager,
+            ISettingsAppService settingsAppService)
         {
             _authorRepository = authorRepository;
             _authorManager = authorManager;
+            _settingsAppService = settingsAppService;
         }
 
         public async Task<AuthorDto> GetAsync(Guid id)
@@ -30,6 +34,12 @@ namespace DevNas.BookStore.Authors
 
         public async Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input)
         {
+            //replace with settings service
+            if (await _settingsAppService.GetAllowToViewAuthors() != "True")
+            {
+                return new PagedResultDto<AuthorDto>();
+            }
+
             if (input.Sorting.IsNullOrWhiteSpace())
             {
                 input.Sorting = nameof(Author.Name);
